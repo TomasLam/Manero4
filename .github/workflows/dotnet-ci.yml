@@ -2,29 +2,30 @@ name: .NET CI
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [ master ]
   pull_request:
-    branches: [ main, master ]
+    branches: [ master ]
 
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 🧭 Check out repository
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: 🧱 Setup .NET
+      - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '9.0.x'
+          dotnet-version: |
+            9.0.x
+            8.0.x
 
-      - name: 📦 Restore dependencies
+      - name: Restore dependencies
         run: dotnet restore ./backend/Manero.sln
 
-      - name: 🏗️ Build
-        run: dotnet build ./backend/Manero.sln --no-restore --configuration Release
+      - name: Build
+        run: dotnet build ./backend/Manero.sln --configuration Release --no-restore
 
       - name: Test
-  run: dotnet test ./backend/Manero.sln --configuration Release --verbosity normal
-
+        run: dotnet test ./backend/Manero.sln --configuration Release --verbosity normal
