@@ -25,5 +25,6 @@ jobs:
       - name: 🏗️ Build
         run: dotnet build ./backend/Manero.sln --no-restore --configuration Release
 
-      - name: ✅ Run tests
-        run: dotnet test ./backend/Manero.sln --no-build --verbosity normal
+      - name: Test
+  run: dotnet test ./backend/Manero.sln --configuration Release --verbosity normal
+
